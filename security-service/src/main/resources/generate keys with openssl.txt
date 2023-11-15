@@ -1,0 +1,7 @@
+#keypair
+commande: openssl genrsa -out keypair.pem 2048
+#depuis keypair en genére public key et private key
+#public key
+commande: openssl rsa -in keypair.pem -pubout -out public.pem
+#private key
+commande: openssl pkcs8 -topk8 -inform PEM -nocrypt -in keypair.pem -out private.pem

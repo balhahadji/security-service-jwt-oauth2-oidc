@@ -1,0 +1,25 @@
+ajout de dependence
+<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15to18 -->
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcpkix-jdk15to18</artifactId>
+    <version>1.76</version>
+</dependency>
+
+//Puis en execute ce code java
+public class GenerateKeyPair {
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        var keypair = keyPairGenerator.generateKeyPair();
+        byte[] pub = keypair.getPublic().getEncoded();
+        byte[] pri = keypair.getPrivate().getEncoded();
+        PemWriter pemWriter = new PemWriter(new OutputStreamWriter((new FileOutputStream("pub.pem"))));
+        PemObject pemObject = new PemObject("PUBLIC KEY", pub);
+        pemWriter.writeObject(pemObject);
+        pemWriter.close();
+        PemWriter pemWriter2 = new PemWriter(new OutputStreamWriter((new FileOutputStream("pri.pem"))));
+        PemObject pemObject2 = new PemObject("PRIVATE KEY", pri);
+        pemWriter2.writeObject(pemObject2);
+        pemWriter.close();
+    }
+}
